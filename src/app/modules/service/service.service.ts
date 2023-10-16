@@ -1,28 +1,22 @@
 import httpStatus from "http-status";
 import {ApiError} from "../../../handleErrors/ApiError";
-import {productSearchableFields} from "./service.constant";
 import {SortOrder} from "mongoose";
 import {IGenericPaginationResponse, IPaginationOptions} from "../../../interfaces/pagination";
 import {calculatePagination} from "../../../shared/paginationHelper";
-import {IProduct, IProductFilters, Review} from "./service.interface";
-import {Product} from "./service.model";
+import {IService, IServiceFilters, Review} from "./service.interface";
+import {Service} from "./service.model";
+import {serviceSearchableFields} from "./service.constant";
 
-//add Product
-export const addProductService = async (payload: IProduct) => {
-  const {rating, version, ...others} = payload;
-  const data = {
-    ...others,
-    rating: [rating],
-    version: [version],
-  };
-  const newProduct = await Product.create(data);
-  if (!newProduct) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create product!");
+//add service
+export const addNewService = async (payload: IService) => {
+  const newService = await Service.create(payload);
+  if (!newService) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create service!");
   }
-  return newProduct;
+  return newService;
 };
-//get all Products
-export const getAllProductsService = async (filters: IProductFilters, paginationOptions: IPaginationOptions): Promise<IGenericPaginationResponse<IProduct[]>> => {
+//get all services
+export const getAllServices = async (filters: IServiceFilters, paginationOptions: IPaginationOptions): Promise<IGenericPaginationResponse<IService[]>> => {
   //pagination
   const {page, limit, skip, sortBy, sortOrder} = calculatePagination(paginationOptions);
   const sortConditions: {[key: string]: SortOrder} = {};
@@ -34,7 +28,7 @@ export const getAllProductsService = async (filters: IProductFilters, pagination
   const andconditions = [];
   if (searchTerm) {
     andconditions.push({
-      $or: productSearchableFields.map((field) => ({
+      $or: serviceSearchableFields.map((field) => ({
         [field]: {
           $regex: searchTerm,
           $options: "i",
@@ -46,59 +40,65 @@ export const getAllProductsService = async (filters: IProductFilters, pagination
   if (Object.keys(filtersData).length > 0) {
     andconditions.push({
       $and: Object.entries(filtersData).map(([field, value]) => {
-        return {[field]: value};
+        if (field === "minPrice") {
+          return {price: {$gte: value}};
+        } else if (field === "maxPrice") {
+          return {price: {$lte: value}};
+        } else {
+          return {[field]: value};
+        }
       }),
     });
   }
   const whereCondition = andconditions?.length > 0 ? {$and: andconditions} : {};
-  const products = await Product.find(whereCondition).sort(sortConditions).skip(skip);
-  const count = await Product.countDocuments(whereCondition);
+  const services = await Service.find(whereCondition).sort(sortConditions).skip(skip);
+  const count = await Service.countDocuments(whereCondition);
   return {
     meta: {
       page,
       limit,
       count,
     },
-    data: products,
+    data: services,
   };
 };
 
-//get a single Product
-export const getSingleProductService = async (id: string): Promise<IProduct | null> => {
-  const product = await Product.findById({_id: id});
-  return product;
+//get a single service
+export const getSingleService = async (id: string): Promise<IService | null> => {
+  const service = await Service.findById({_id: id});
+  return service;
 };
-//update Product
-export const updateProductService = async (id: string, payload: Partial<IProduct>): Promise<IProduct | null> => {
-  const isExist = await Product.findById({_id: id});
+//update service
+export const updateService = async (id: string, payload: Partial<IService>): Promise<IService | null> => {
+  const isExist = await Service.findById({_id: id});
   if (!isExist) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Product not found!");
+    throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
 
-  const result = await Product.findOneAndUpdate({_id: id}, payload, {
+  const result = await Service.findOneAndUpdate({_id: id}, payload, {
     new: true,
   });
   return result;
 };
 
-//delete Product
-export const deleteProductService = async (id: string): Promise<IProduct | null> => {
-  const isExist = await Product.findById({_id: id});
+//delete Service
+export const deleteServiceById = async (id: string): Promise<IService | null> => {
+  const isExist = await Service.findById({_id: id});
   if (!isExist) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Product not found!");
+    throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
-  const result = await Product.findByIdAndDelete(id);
+  const result = await Service.findByIdAndDelete(id);
   return result;
 };
 
 //add reviews
-export const addReviewService = async (id: string, review: Review): Promise<IProduct | null> => {
-  const isExist = await Product.findById({_id: id});
+export const addReviewService = async (id: string, review: Review): Promise<IService | null> => {
+  const isExist = await Service.findById({_id: id});
   if (!isExist) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Product not found!");
+    throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
 
-  const result = await Product.findOneAndUpdate(
+  const result = await Service.findOneAndUpdate(
     {_id: id},
     {$push: {reviews: review}},
     {

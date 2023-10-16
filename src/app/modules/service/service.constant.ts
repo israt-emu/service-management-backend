@@ -1,2 +1,2 @@
-export const productSearchableFields = ["name", "category", "description"];
-export const productFilterableFields = ["searchTerm", "category", "subCategory"];
+export const serviceSearchableFields = ["title", "category", "description"];
+export const serviceFilterableFields = ["searchTerm", "category", "status", "price", "maxPrice", "minPrice"];

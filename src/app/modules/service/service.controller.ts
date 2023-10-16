@@ -1,71 +1,70 @@
 import httpStatus from "http-status";
 import {catchAsync} from "../../../shared/catchAsync";
 import {sendResponse} from "../../../shared/sendResponse";
-
 import {Request, Response} from "express";
 import {pick} from "../../../shared/pick";
 import {paginationFields} from "../../../constant/pagination";
-import {IProduct} from "./service.interface";
-import {addProductService, addReviewService, deleteProductService, getAllProductsService, getSingleProductService, updateProductService} from "./service.service";
-import {productFilterableFields} from "./service.constant";
+import {IService} from "./service.interface";
+import {addNewService, addReviewService, deleteServiceById, getAllServices, getSingleService, updateService} from "./service.service";
+import {serviceFilterableFields} from "./service.constant";
 
-export const createProduct = catchAsync(async (req: Request, res: Response) => {
-  const product = req.body;
+export const createService = catchAsync(async (req: Request, res: Response) => {
+  const service = req.body;
 
-  const newProduct = await addProductService(product);
-  sendResponse<IProduct>(res, {
+  const newService = await addNewService(service);
+  sendResponse<IService>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product created successfully!",
-    data: newProduct,
+    message: "Service created successfully!",
+    data: newService,
   });
 });
-//get all Product
-export const getAllProduct = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, productFilterableFields);
+//get all Service
+export const findAllService = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, serviceFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
-  const products = await getAllProductsService(filters, paginationOptions);
-  sendResponse<IProduct[]>(res, {
+  const services = await getAllServices(filters, paginationOptions);
+  sendResponse<IService[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product retrieved successfully!",
-    meta: products.meta,
-    data: products.data,
+    message: "Service retrieved successfully!",
+    meta: services.meta,
+    data: services.data,
   });
 });
-//get a single product
-export const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
+//get a single Service
+export const findSingleService = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const product = await getSingleProductService(id);
-  sendResponse<IProduct>(res, {
+  const service = await getSingleService(id);
+  sendResponse<IService>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product retrieved successfully!",
-    data: product,
+    message: "Service retrieved successfully!",
+    data: service,
   });
 });
-//update product
-export const updateProduct = catchAsync(async (req: Request, res: Response) => {
+//update Service
+export const modifyService = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req?.body;
-  const updatedProduct = await updateProductService(id, updatedData);
-  sendResponse<IProduct>(res, {
+  const result = await updateService(id, updatedData);
+  sendResponse<IService>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product updated successfully!",
-    data: updatedProduct,
+    message: "Service updated successfully!",
+    data: result,
   });
 });
-//delete product
-export const deleteProduct = catchAsync(async (req: Request, res: Response) => {
+//delete Service
+export const deleteService = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const product = await deleteProductService(id);
+  const service = await deleteServiceById(id);
 
-  sendResponse<IProduct>(res, {
+  sendResponse<IService>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product deleted successfully!",
-    data: product,
+    message: "Service deleted successfully!",
+    data: service,
   });
 });
 //add reviews
@@ -73,7 +72,7 @@ export const addReview = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const review = req?.body;
   const result = await addReviewService(id, review);
-  sendResponse<IProduct>(res, {
+  sendResponse<IService>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Review added successfully!",

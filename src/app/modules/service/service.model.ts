@@ -15,7 +15,7 @@ const ServiceSchema = new Schema<IService, ServiceModel>(
       required: true,
     },
     duration: {
-      type: Number,
+      type: String,
       required: true,
     },
 
@@ -26,28 +26,27 @@ const ServiceSchema = new Schema<IService, ServiceModel>(
 
     status: {
       type: String,
-      required: true,
       enum: ["available", "unavailable"],
+      default: "available",
     },
-
-    rating: [
-      {
-        type: Number,
-      },
-    ],
     images: [
       {
         type: String,
       },
     ],
-    reviews: {
-      review: {
-        type: String,
+    reviews: [
+      {
+        review: {
+          type: String,
+        },
+        rating: {
+          type: Number,
+        },
+        user: {
+          type: Schema.Types.ObjectId,
+        },
       },
-      user: {
-        type: Schema.Types.ObjectId,
-      },
-    },
+    ],
     addedBy: {
       type: Schema.Types.ObjectId,
       required: true,
