@@ -52,7 +52,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     timestamps: true,
   }
 );
-//check user existence
+//check user existence bu email
 UserSchema.methods.isUserExist = async function (email: string): Promise<IExistingUser | null> {
   return await User.findOne({email}, {_id: 1, password: 1, email: 1, role: 1}).lean();
 };
