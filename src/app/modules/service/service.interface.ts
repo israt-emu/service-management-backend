@@ -4,7 +4,7 @@ import {IUser} from "../user/user.interface";
 export type Review = {
   review: string;
   rating: number;
-  user: Types.ObjectId | string;
+  user: Types.ObjectId | IUser;
 };
 export type IService = {
   title: string;

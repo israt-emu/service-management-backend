@@ -70,7 +70,7 @@ export const getSingleService = async (id: string): Promise<IService | null> => 
 };
 //update service
 export const updateService = async (id: string, payload: Partial<IService>): Promise<IService | null> => {
-  const isExist = await Service.findById({_id: id});
+  const isExist = await Service.findOne({_id: id});
   if (!isExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
@@ -83,21 +83,20 @@ export const updateService = async (id: string, payload: Partial<IService>): Pro
 
 //delete Service
 export const deleteServiceById = async (id: string): Promise<IService | null> => {
-  const isExist = await Service.findById({_id: id});
+  const isExist = await Service.findOne({_id: id});
   if (!isExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
-  const result = await Service.findByIdAndDelete(id);
+  const result = await Service.findOneAndDelete({_id: id});
   return result;
 };
 
 //add reviews
 export const addReviewService = async (id: string, review: Review): Promise<IService | null> => {
-  const isExist = await Service.findById({_id: id});
+  const isExist = await Service.findOne({_id: id});
   if (!isExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
   }
-
   const result = await Service.findOneAndUpdate(
     {_id: id},
     {$push: {reviews: review}},
