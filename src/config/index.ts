@@ -14,6 +14,4 @@ export default {
     expires_in: process.env.JWT_EXPIRES_IN,
     refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
   },
-  store_id: process.env.STORE_ID,
-  store_pass: process.env.STORE_PASS,
 };

@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {createUserService, loginUserService, refreshTokenService} from "./auth.service";
+import { loginUserService, refreshTokenService, signUpService} from "./auth.service";
 import {catchAsync} from "../../../shared/catchAsync";
 import {sendResponse} from "../../../shared/sendResponse";
 import httpStatus from "http-status";
@@ -7,9 +7,9 @@ import {IUser} from "../user/user.interface";
 import config from "../../../config";
 import {ILoginResponse, IRefreshTokenResponse} from "./auth.interface";
 
-export const createUser = catchAsync(async (req: Request, res: Response) => {
+export const signUp = catchAsync(async (req: Request, res: Response) => {
   const user = req.body;
-  const newUser = await createUserService(user);
+  const newUser = await signUpService(user);
   sendResponse<Partial<IUser>>(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -8,8 +8,10 @@ export type IUser = {
     firstName: string;
     lastName: string;
   };
-  phoneNumber:string;
-  seller:boolean;
+  phoneNumber: string;
+  role: "admin" | "super admin" | "user";
+  profile?: string;
+  address: string;
 };
 export type IUserMethods = {
   isUserExist(email: string): Promise<IExistingUser | null>;

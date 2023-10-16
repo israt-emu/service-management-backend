@@ -3,6 +3,7 @@ import {IUser, UserModel} from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../../config";
 import {IExistingUser} from "../auth/auth.interface";
+import {roleEnums} from "../auth/auth.utils";
 
 const UserSchema = new Schema<IUser, UserModel>(
   {
@@ -34,9 +35,17 @@ const UserSchema = new Schema<IUser, UserModel>(
       type: String,
       required: true,
     },
-    seller: {
-      type: Boolean,
+    profile: {
+      type: String,
+    },
+    address: {
+      type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: roleEnums,
+      default: "user",
     },
   },
   {
@@ -45,7 +54,7 @@ const UserSchema = new Schema<IUser, UserModel>(
 );
 //check user existence
 UserSchema.methods.isUserExist = async function (email: string): Promise<IExistingUser | null> {
-  return await User.findOne({email}, {_id: 1, password: 1, email: 1}).lean();
+  return await User.findOne({email}, {_id: 1, password: 1, email: 1, role: 1}).lean();
 };
 //check by id
 UserSchema.methods.isUserExistById = async function (id: string): Promise<IExistingUser | null> {

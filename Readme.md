@@ -7,6 +7,7 @@ model
   contactNo
   profile
   address
+  role
 
 - //service----
   Title

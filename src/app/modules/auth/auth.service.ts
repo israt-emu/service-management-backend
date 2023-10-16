@@ -7,7 +7,7 @@ import {ILoginResponse, ILoginUser, IRefreshTokenResponse} from "./auth.interfac
 import {createToken, verifyToken} from "../../../shared/jwtHelpers";
 import {Secret} from "jsonwebtoken";
 
-export const createUserService = async (user: IUser): Promise<Partial<IUser> | null> => {
+export const signUpService = async (user: IUser): Promise<Partial<IUser> | null> => {
   //creating user
   const newUser = (await User.create(user)).toObject();
   if (!newUser) {
@@ -31,7 +31,7 @@ export const loginUserService = async (payload: ILoginUser): Promise<ILoginRespo
     throw new ApiError(httpStatus.UNAUTHORIZED, "password is incorrect");
   }
   //create accesstoken & refresh token
-  const {_id: userId, email: userEmail} = isUserExist;
+  const {_id: userId, role: userRole} = isUserExist;
   const accessToken = createToken({userId, userEmail}, config.jwt.secret as Secret, {
     expiresIn: config.jwt.expires_in,
   });
