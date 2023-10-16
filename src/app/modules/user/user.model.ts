@@ -58,7 +58,7 @@ UserSchema.methods.isUserExist = async function (email: string): Promise<IExisti
 };
 //check by id
 UserSchema.methods.isUserExistById = async function (id: string): Promise<IExistingUser | null> {
-  return await User.findOne({_id: id}, {_id: 1, password: 1, email: 1}).lean();
+  return await User.findOne({_id: id}, {_id: 1, password: 1, role: 1}).lean();
 };
 //check password match
 UserSchema.methods.isPasswordMatched = async function (givenPass: string, savedPass: string): Promise<boolean> {
