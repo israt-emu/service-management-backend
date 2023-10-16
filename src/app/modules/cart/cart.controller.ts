@@ -1,14 +1,14 @@
 import httpStatus from "http-status";
 import {catchAsync} from "../../../shared/catchAsync";
 import {ICart} from "./cart.interface";
-import {addORUpdateCartService, deleteProductFromCartService, getSingleCartService, handleQuantityService} from "./cart.service";
 import {sendResponse} from "../../../shared/sendResponse";
 import {Request, Response} from "express";
-//create or update cart
-export const createOrUpdateCart = catchAsync(async (req: Request, res: Response) => {
+import {addCartService, deleteCartService, getCartByUserService, getSingleCartService, handleQuantityService} from "./cart.service";
+//create cart
+export const createCart = catchAsync(async (req: Request, res: Response) => {
   const cartData = req.body;
 
-  const cart = await addORUpdateCartService(cartData);
+  const cart = await addCartService(cartData);
   sendResponse<ICart>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -18,8 +18,8 @@ export const createOrUpdateCart = catchAsync(async (req: Request, res: Response)
 });
 //get a single cart
 export const getSingleCart = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const cart = await getSingleCartService(id);
+  const {user, serviceId} = req.body;
+  const cart = await getSingleCartService(user, serviceId);
   sendResponse<ICart>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,25 +27,36 @@ export const getSingleCart = catchAsync(async (req: Request, res: Response) => {
     data: cart,
   });
 });
-//remove product from cart
-export const deleteProductFromCart = catchAsync(async (req: Request, res: Response) => {
-  const {user, productId} = req.body;
-  const cart = await deleteProductFromCartService(user, productId);
+//get all cart by user
+export const getCartByUser = catchAsync(async (req: Request, res: Response) => {
+  const {id} = req.params;
+  const cart = await getCartByUserService(id);
+  sendResponse<ICart[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Carts retrieved successfully!",
+    data: cart,
+  });
+});
+//remove cart
+export const deleteCart = catchAsync(async (req: Request, res: Response) => {
+  const {user, serviceId} = req.body;
+  const cart = await deleteCartService(user, serviceId);
   sendResponse<ICart>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product deleted successfully!",
+    message: "Cart deleted successfully!",
     data: cart,
   });
 });
 //handle quantity
 export const handleQuantity = catchAsync(async (req: Request, res: Response) => {
-  const {user, productId,operation} = req.body;
-  const cart = await handleQuantityService(user, productId, operation);
+  const {user, serviceId, operation} = req.body;
+  const cart = await handleQuantityService(user, serviceId, operation);
   sendResponse<ICart>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Quantity handled successfully!",
+    message: "Quantity updated successfully!",
     data: cart,
   });
 });

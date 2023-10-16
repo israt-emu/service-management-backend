@@ -1,14 +1,12 @@
 import {Model, Types} from "mongoose";
 import {IUser} from "../user/user.interface";
-import {IProduct} from "../service/service.interface";
-export type CartProduct = {
-  productId: Types.ObjectId | IProduct;
+import {IService} from "../service/service.interface";
+
+export type ICart = {
+  serviceId: Types.ObjectId | IService;
+  title: string;
   price: number;
   quantity: number;
-  name: string;
-};
-export type ICart = {
-  products: CartProduct[];
   user: Types.ObjectId | IUser;
 };
 

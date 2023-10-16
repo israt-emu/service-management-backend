@@ -1,30 +1,15 @@
 import express from "express";
 import {validateRequest} from "../../middlewares/validateRequest";
-import {createOrUpdateCart, deleteProductFromCart, getSingleCart, handleQuantity} from "./cart.controller";
+import {createCart, deleteCart, getCartByUser, getSingleCart, handleQuantity} from "./cart.controller";
 
 const router = express.Router();
 //,
 
-router.post(
-  "/",
-
-  createOrUpdateCart
-);
-router.post(
-  "/deleteProduct",
-
-  deleteProductFromCart
-);
-router.post(
-  "/handleQuantity",
-
-  handleQuantity
-);
-router.get(
-  "/:id",
-
-  getSingleCart
-);
+router.post("/", createCart);
+router.post("/delete", deleteCart);
+router.post("/handleQuantity", handleQuantity);
+router.get("/:id", getCartByUser);
+router.get("/", getSingleCart);
 
 //
 export const CartRoutes = router;
