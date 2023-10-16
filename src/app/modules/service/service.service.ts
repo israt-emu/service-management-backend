@@ -1,11 +1,11 @@
 import httpStatus from "http-status";
 import {ApiError} from "../../../handleErrors/ApiError";
-import {productSearchableFields} from "./product.constant";
+import {productSearchableFields} from "./service.constant";
 import {SortOrder} from "mongoose";
 import {IGenericPaginationResponse, IPaginationOptions} from "../../../interfaces/pagination";
 import {calculatePagination} from "../../../shared/paginationHelper";
-import {IProduct, IProductFilters, Review} from "./product.interface";
-import {Product} from "./product.model";
+import {IProduct, IProductFilters, Review} from "./service.interface";
+import {Product} from "./service.model";
 
 //add Product
 export const addProductService = async (payload: IProduct) => {

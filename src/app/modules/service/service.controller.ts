@@ -5,9 +5,9 @@ import {sendResponse} from "../../../shared/sendResponse";
 import {Request, Response} from "express";
 import {pick} from "../../../shared/pick";
 import {paginationFields} from "../../../constant/pagination";
-import {IProduct} from "./product.interface";
-import {addProductService, addReviewService, deleteProductService, getAllProductsService, getSingleProductService, updateProductService} from "./product.service";
-import {productFilterableFields} from "./product.constant";
+import {IProduct} from "./service.interface";
+import {addProductService, addReviewService, deleteProductService, getAllProductsService, getSingleProductService, updateProductService} from "./service.service";
+import {productFilterableFields} from "./service.constant";
 
 export const createProduct = catchAsync(async (req: Request, res: Response) => {
   const product = req.body;

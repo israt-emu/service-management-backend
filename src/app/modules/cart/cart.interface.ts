@@ -1,6 +1,6 @@
 import {Model, Types} from "mongoose";
 import {IUser} from "../user/user.interface";
-import {IProduct} from "../product/product.interface";
+import {IProduct} from "../service/service.interface";
 export type CartProduct = {
   productId: Types.ObjectId | IProduct;
   price: number;

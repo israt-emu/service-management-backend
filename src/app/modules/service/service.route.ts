@@ -1,7 +1,7 @@
 import express from "express";
 import {validateRequest} from "../../middlewares/validateRequest";
-import {createProductZodSchema, updateProductZodSchema} from "./product.validation";
-import {addReview, createProduct, deleteProduct, getAllProduct, getSingleProduct, updateProduct} from "./product.controller";
+import {createProductZodSchema, updateProductZodSchema} from "./service.validation";
+import {addReview, createProduct, deleteProduct, getAllProduct, getSingleProduct, updateProduct} from "./service.controller";
 
 const router = express.Router();
 
