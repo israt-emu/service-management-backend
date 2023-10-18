@@ -3,7 +3,7 @@ import {catchAsync} from "../../../shared/catchAsync";
 import {sendResponse} from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import {IBooking} from "./booking.interface";
-import {addBookingService, deleteBookingService, getAllBookingService, getSingleBookingService, reScheduleBookingService, updateBookingStatusService} from "./booking.service";
+import {addBookingService, deleteBookingService, getAllBookingByUserService, getAllBookingService, getSingleBookingService, reScheduleBookingService, updateBookingStatusService} from "./booking.service";
 //create booking
 export const createBooking = catchAsync(async (req: Request, res: Response) => {
   const booking = req.body;
@@ -29,8 +29,18 @@ export const getSingleBooking = catchAsync(async (req: Request, res: Response) =
 });
 //get all booking
 export const getAllBooking = catchAsync(async (req: Request, res: Response) => {
+  const bookings = await getAllBookingService();
+  sendResponse<IBooking[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Bookings retrieved successfully!",
+    data: bookings,
+  });
+});
+//get all booking by user
+export const getAllBookingByUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.user;
-  const bookings = await getAllBookingService(id);
+  const bookings = await getAllBookingByUserService(id);
   sendResponse<IBooking[]>(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -29,7 +29,12 @@ export const getSingleBookingService = async (id: string): Promise<IBooking | nu
   return booking;
 };
 //-----get all booking
-export const getAllBookingService = async (id: string): Promise<IBooking[]> => {
+export const getAllBookingService = async (): Promise<IBooking[]> => {
+  const booking = await Booking.find();
+  return booking;
+};
+//-----get all booking by user
+export const getAllBookingByUserService = async (id: string): Promise<IBooking[]> => {
   const booking = await Booking.find({user: id});
   return booking;
 };
