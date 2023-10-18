@@ -1,6 +1,11 @@
 import {z} from "zod";
 
 export const createBookingZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       totalCost: z.number({
@@ -28,6 +33,11 @@ export const createBookingZodSchema = z.object({
     .strict(),
 });
 export const reScheduleBookingZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       id: z.string({
@@ -43,6 +53,11 @@ export const reScheduleBookingZodSchema = z.object({
     .strict(),
 });
 export const updateStatusZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       id: z.string({

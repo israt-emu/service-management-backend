@@ -1,6 +1,11 @@
 import {z} from "zod";
 
 export const createCartZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       price: z.number({
@@ -20,6 +25,11 @@ export const createCartZodSchema = z.object({
     .strict(),
 });
 export const handleQuantityZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       operation: z.enum(["plus", "minus"], {
@@ -36,6 +46,11 @@ export const handleQuantityZodSchema = z.object({
     .strict(),
 });
 export const deleteCartZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       serviceId: z.string({

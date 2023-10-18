@@ -1,6 +1,11 @@
 import {z} from "zod";
 
 export const createServiceZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       title: z.string({
@@ -25,6 +30,11 @@ export const createServiceZodSchema = z.object({
     .strict(),
 });
 export const updateServiceZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       title: z.string().optional(),

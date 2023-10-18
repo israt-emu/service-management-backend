@@ -1,6 +1,11 @@
 import {z} from "zod";
 
 export const createFeedbackZodSchema = z.object({
+  headers: z.object({
+    authorization: z.string().nonempty({
+      message: "Authorization is required",
+    }),
+  }),
   body: z
     .object({
       user: z.string({
