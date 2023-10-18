@@ -34,7 +34,7 @@ export const getUserProfileService = async (user: {userId: string; role: ENUM_US
   if (!user.userId) {
     throw new ApiError(httpStatus.FORBIDDEN, "Access denied");
   }
-
+  console.log(user);
   const specificUser = await User.findOne({
     _id: user.userId,
   });

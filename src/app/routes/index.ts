@@ -18,7 +18,7 @@ const moduleRoutes = [
   {path: "/carts", route: CartRoutes},
   {path: "/bookings", route: BookingRoutes},
   {path: "/reviewRatings", route: ReviewAndRatingRoutes},
-  {path: "/blog", route: BlogRoutes},
+  {path: "/blogs", route: BlogRoutes},
   {path: "/faq", route: FaqRoutes},
   {path: "/feedbacks", route: FeedbackRoutes},
 ];
