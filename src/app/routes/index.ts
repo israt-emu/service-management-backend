@@ -7,6 +7,7 @@ import {BookingRoutes} from "../modules/booking/booking.route";
 import {ReviewAndRatingRoutes} from "../modules/reviewAndRating/reviewAndRating.route";
 import {BlogRoutes} from "../modules/blog/blog.route";
 import {FaqRoutes} from "../modules/faq/faq.route";
+import {FeedbackRoutes} from "../modules/feedBack/feedBack.route";
 
 const router = express.Router();
 //
@@ -19,7 +20,7 @@ const moduleRoutes = [
   {path: "/reviewRatings", route: ReviewAndRatingRoutes},
   {path: "/blog", route: BlogRoutes},
   {path: "/faq", route: FaqRoutes},
-  // {path: "/faq", route: FaqRoutes},
+  {path: "/feedbacks", route: FeedbackRoutes},
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
