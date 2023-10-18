@@ -18,7 +18,9 @@ export const addBookingService = async (payload: IBooking) => {
 //-----update booking status
 export const updateBookingStatusService = async (id: string, status: string): Promise<IBooking | null> => {
   const booking = await Booking.findOneAndUpdate({_id: id}, {status}, {new: true});
-
+  if (!booking) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Failed to update booking!");
+  }
   return booking;
 };
 //-----get a single booking
@@ -34,5 +36,16 @@ export const getAllBookingService = async (id: string): Promise<IBooking[]> => {
 //-----re-schedule booking
 export const reScheduleBookingService = async (id: string, date: string, time: string): Promise<IBooking | null> => {
   const booking = await Booking.findOneAndUpdate({_id: id}, {date, time}, {new: true});
+  if (!booking) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Failed to reschedule booking!");
+  }
+  return booking;
+};
+//-----delete booking
+export const deleteBookingService = async (id: string): Promise<IBooking | null> => {
+  const booking = await Booking.findOneAndDelete({_id: id});
+  if (!booking) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Failed to delete booking!");
+  }
   return booking;
 };
