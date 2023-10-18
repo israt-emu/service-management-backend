@@ -34,22 +34,7 @@ const ServiceSchema = new Schema<IService, ServiceModel>(
         type: String,
       },
     ],
-    reviews: [
-      {
-        type: {
-          review: {
-            type: String,
-          },
-          rating: {
-            type: Number,
-          },
-          user: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-          },
-        },
-      },
-    ],
+
     addedBy: {
       type: Schema.Types.ObjectId,
       required: true,

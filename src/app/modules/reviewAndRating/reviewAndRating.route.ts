@@ -1,11 +1,13 @@
 import express from "express";
 import {addReviewAndRating, deleteReviewAndRating, getAllReviewAndRating, getAllReviewAndRatingByUser, getSingleReviewAndRating, updateReviewAndRating} from "./reviewAndRating.controller";
+import {validateRequest} from "../../middlewares/validateRequest";
+import {createReviewRatingZodSchema} from "./reviewAndRating.validation";
 
 const router = express.Router();
 
 //,
 
-router.post("/", addReviewAndRating);
+router.post("/", validateRequest(createReviewRatingZodSchema), addReviewAndRating);
 router.get("/:id", getSingleReviewAndRating);
 router.get("/getAll", getAllReviewAndRating);
 router.get("/getByUser/:id", getAllReviewAndRatingByUser);

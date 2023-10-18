@@ -43,8 +43,8 @@ export const getAllFaq = catchAsync(async (req: Request, res: Response) => {
 
 //update faq
 export const updateFaq = catchAsync(async (req: Request, res: Response) => {
-  const {faqId, data} = req.body;
-  const faq = await updateFaqService(faqId, data);
+  const { id, data} = req.body;
+  const faq = await updateFaqService(id, data);
   sendResponse<IFaq>(res, {
     statusCode: httpStatus.OK,
     success: true,

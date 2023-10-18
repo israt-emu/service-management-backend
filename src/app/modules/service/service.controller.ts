@@ -5,7 +5,7 @@ import {Request, Response} from "express";
 import {pick} from "../../../shared/pick";
 import {paginationFields} from "../../../constant/pagination";
 import {IService} from "./service.interface";
-import {addNewService, addReviewService, deleteServiceById, getAllServices, getSingleService, updateService} from "./service.service";
+import {addNewService, deleteServiceById, getAllServices, getSingleService, updateService} from "./service.service";
 import {serviceFilterableFields} from "./service.constant";
 
 export const createService = catchAsync(async (req: Request, res: Response) => {
@@ -67,15 +67,4 @@ export const deleteService = catchAsync(async (req: Request, res: Response) => {
     data: service,
   });
 });
-//add reviews
-export const addReview = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const review = req?.body;
-  const result = await addReviewService(id, review);
-  sendResponse<IService>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Review added successfully!",
-    data: result,
-  });
-});
+

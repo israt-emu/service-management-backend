@@ -1,11 +1,6 @@
 import {Model, Types} from "mongoose";
 import {IUser} from "../user/user.interface";
 
-export type Review = {
-  review: string;
-  rating: number;
-  user: Types.ObjectId | IUser;
-};
 export type IService = {
   title: string;
   description: string;
@@ -14,7 +9,6 @@ export type IService = {
   price: number;
   category: string;
   images: string[];
-  reviews: Review[];
   addedBy: Types.ObjectId | IUser;
 };
 export type IServiceFilters = {

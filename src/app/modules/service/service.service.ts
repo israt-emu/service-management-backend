@@ -3,7 +3,7 @@ import {ApiError} from "../../../handleErrors/ApiError";
 import {SortOrder} from "mongoose";
 import {IGenericPaginationResponse, IPaginationOptions} from "../../../interfaces/pagination";
 import {calculatePagination} from "../../../shared/paginationHelper";
-import {IService, IServiceFilters, Review} from "./service.interface";
+import {IService, IServiceFilters} from "./service.interface";
 import {Service} from "./service.model";
 import {serviceSearchableFields} from "./service.constant";
 
@@ -91,18 +91,4 @@ export const deleteServiceById = async (id: string): Promise<IService | null> =>
   return result;
 };
 
-//add reviews
-export const addReviewService = async (id: string, review: Review): Promise<IService | null> => {
-  const isExist = await Service.findOne({_id: id});
-  if (!isExist) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Service not found!");
-  }
-  const result = await Service.findOneAndUpdate(
-    {_id: id},
-    {$push: {reviews: review}},
-    {
-      new: true,
-    }
-  );
-  return result;
-};
+

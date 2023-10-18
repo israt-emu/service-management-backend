@@ -8,10 +8,6 @@ const CartSchema = new Schema<ICart, CartModel>(
       required: true,
       ref: "Service",
     },
-    title: {
-      type: String,
-      required: true,
-    },
     price: {
       type: Number,
       required: true,

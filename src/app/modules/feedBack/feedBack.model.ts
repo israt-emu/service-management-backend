@@ -8,11 +8,7 @@ const FeedbackSchema = new Schema<IFeedback, FeedbackModel>(
       ref: "User",
       required: true,
     },
-    service: {
-      type: Schema.Types.ObjectId,
-      ref: "Service",
-      required: true,
-    },
+
     rating: {
       type: Number,
       required: true,

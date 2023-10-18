@@ -38,13 +38,3 @@ export const updateServiceZodSchema = z.object({
     })
     .strict(),
 });
-
-export const addReviewZodSchema = z.object({
-  body: z
-    .object({
-      review: z.string({required_error: "Review is required"}),
-      rating: z.number({required_error: "rating is required"}),
-      user: z.string({required_error: "user is required"}),
-    })
-    .strict(),
-});

@@ -4,7 +4,6 @@ import {IService} from "../service/service.interface";
 
 export type ICart = {
   serviceId: Types.ObjectId | IService;
-  title: string;
   price: number;
   quantity: number;
   user: Types.ObjectId | IUser;

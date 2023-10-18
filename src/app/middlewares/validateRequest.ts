@@ -10,6 +10,7 @@ export const validateRequest =
         query: req.query,
         params: req.params,
         cookies: req.cookies,
+        headers: req.headers,
       });
       return next();
     } catch (err) {
