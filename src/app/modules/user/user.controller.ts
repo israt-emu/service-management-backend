@@ -3,7 +3,7 @@ import {catchAsync} from "../../../shared/catchAsync";
 import {sendResponse} from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import {IUser} from "./user.interface";
-import {getAllUsersService, getSingleUserService, getUserProfileService, makeAdminService} from "./user.service";
+import {deleteUserService, getAllUsersService, getSingleUserService, getUserProfileService, makeAdminService, updateUserService} from "./user.service";
 
 //get all users
 export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
@@ -46,5 +46,29 @@ export const makeAdmin = catchAsync(async (req, res) => {
     success: true,
     data: user,
     message: "User assigned role as admin successfully!",
+  });
+});
+//update user
+export const updateUser = catchAsync(async (req, res) => {
+  const {id, data} = req.body;
+  const user = await updateUserService(id, data);
+
+  sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    data: user,
+    message: "User updated successfully!",
+  });
+});
+//delete user
+export const deleteUser = catchAsync(async (req, res) => {
+  const {id} = req.params;
+  const user = await deleteUserService(id);
+
+  sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    data: user,
+    message: "User deleted successfully!",
   });
 });

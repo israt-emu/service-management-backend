@@ -25,17 +25,17 @@ export const updateBookingStatusService = async (id: string, status: string): Pr
 };
 //-----get a single booking
 export const getSingleBookingService = async (id: string): Promise<IBooking | null> => {
-  const booking = await Booking.findOne({_id: id});
+  const booking = await Booking.findOne({_id: id}).populate("user").populate("service");
   return booking;
 };
 //-----get all booking
 export const getAllBookingService = async (): Promise<IBooking[]> => {
-  const booking = await Booking.find();
+  const booking = await Booking.find().populate("user").populate("service");
   return booking;
 };
 //-----get all booking by user
 export const getAllBookingByUserService = async (id: string): Promise<IBooking[]> => {
-  const booking = await Booking.find({user: id});
+  const booking = await Booking.find({user: id}).populate("user").populate("service");
   return booking;
 };
 //-----re-schedule booking

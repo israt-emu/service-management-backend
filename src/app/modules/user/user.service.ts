@@ -45,3 +45,34 @@ export const getUserProfileService = async (user: {userId: string; role: ENUM_US
 
   return specificUser;
 };
+
+//update user
+export const updateUserService = async (id: string, payload: Partial<IUser>): Promise<IUser | null> => {
+  const isExist = await User.findOne({_id: id});
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User doesn't found");
+  }
+  const {name, ...data} = payload;
+
+  const updatedData: Partial<IUser> = {...data};
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach((key) => {
+      const nameKey = `name.${key}` as keyof Partial<IUser>; // `name.fisrtName`
+      (updatedData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+
+  const result = await User.findOneAndUpdate({_id: id}, updatedData, {
+    new: true,
+  });
+  return result;
+};
+//delete user
+export const deleteUserService = async (id: string): Promise<IUser> => {
+  const result = await User.findOneAndDelete({_id: id});
+  if (!result) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "User couldn't be deleted");
+  }
+  return result;
+};

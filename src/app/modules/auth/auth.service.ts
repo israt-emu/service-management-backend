@@ -32,11 +32,11 @@ export const loginUserService = async (payload: ILoginUser): Promise<ILoginRespo
   }
   //create accesstoken & refresh token
   const {_id: userId, role} = isUserExist;
-  const accessToken = createToken({userId, role}, config.jwt.secret as Secret, {
+  const accessToken = createToken({userId, role, email}, config.jwt.secret as Secret, {
     expiresIn: config.jwt.expires_in,
   });
 
-  const refreshToken = createToken({userId, role}, config.jwt.refresh_secret as Secret, {expiresIn: config.jwt.refresh_expires_in});
+  const refreshToken = createToken({userId, role, email}, config.jwt.refresh_secret as Secret, {expiresIn: config.jwt.refresh_expires_in});
 
   return {
     accessToken,
