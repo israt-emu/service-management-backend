@@ -14,13 +14,13 @@ export const addFeedbackService = async (payload: IFeedback): Promise<IFeedback 
 
 //get feedback
 export const getSingleFeedbackService = async (id: string): Promise<IFeedback | null> => {
-  const feedback = await Feedback.findOne({_id: id});
+  const feedback = await Feedback.findOne({_id: id}).populate("user");
   return feedback;
 };
 
 //get all feedback
 export const getAllfeedbackService = async (): Promise<IFeedback[]> => {
-  const feedback = await Feedback.find({});
+  const feedback = await Feedback.find({}).populate("user");
   return feedback;
 };
 

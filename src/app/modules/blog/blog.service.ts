@@ -31,7 +31,7 @@ export const getSingleBlogService = async (id: string): Promise<IBlog | null> =>
 };
 //-----get all booking
 export const getAllBlogService = async (): Promise<IBlog[]> => {
-  const blog = await Blog.find({});
+  const blog = await Blog.find({}).sort({createdAt: "asc"});
   return blog;
 };
 

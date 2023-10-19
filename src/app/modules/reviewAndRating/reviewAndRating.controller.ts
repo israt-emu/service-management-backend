@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {catchAsync} from "../../../shared/catchAsync";
 import {sendResponse} from "../../../shared/sendResponse";
 import httpStatus from "http-status";
-import {addReviewRatingService, deleteReviewRatingService, getAllReviewRatingByUserService, getAllReviewRatingService, getSingleReviewRatingService, updateReviewAndRatingService} from "./reviewAndRating.service";
+import {addReviewRatingService, deleteReviewRatingService, getAllReviewRatingByServiceService, getAllReviewRatingByUserService, getAllReviewRatingService, getSingleReviewRatingService, updateReviewAndRatingService} from "./reviewAndRating.service";
 import {IReviewRating} from "./reviewAndRating.interface";
 
 //create review and rating
@@ -40,7 +40,7 @@ export const getAllReviewAndRating = catchAsync(async (req: Request, res: Respon
 });
 //get all ReviewAndRating by user
 export const getAllReviewAndRatingByUser = catchAsync(async (req: Request, res: Response) => {
-    const {id}=req.params;
+  const {id} = req.params;
   const result = await getAllReviewRatingByUserService(id);
   sendResponse<IReviewRating[]>(res, {
     statusCode: httpStatus.OK,
@@ -68,6 +68,18 @@ export const deleteReviewAndRating = catchAsync(async (req: Request, res: Respon
     statusCode: httpStatus.OK,
     success: true,
     message: "ReviewAndRating deleted successfully!",
+    data: result,
+  });
+});
+
+//get all ReviewAndRating by service
+export const getAllReviewAndRatingByService = catchAsync(async (req: Request, res: Response) => {
+  const {id} = req.params;
+  const result = await getAllReviewRatingByServiceService(id);
+  sendResponse<IReviewRating[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "ReviewAndRatings retrieved successfully!",
     data: result,
   });
 });

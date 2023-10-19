@@ -1,5 +1,5 @@
 import express from "express";
-import {addReviewAndRating, deleteReviewAndRating, getAllReviewAndRating, getAllReviewAndRatingByUser, getSingleReviewAndRating, updateReviewAndRating} from "./reviewAndRating.controller";
+import {addReviewAndRating, deleteReviewAndRating, getAllReviewAndRating, getAllReviewAndRatingByService, getAllReviewAndRatingByUser, getSingleReviewAndRating, updateReviewAndRating} from "./reviewAndRating.controller";
 import {validateRequest} from "../../middlewares/validateRequest";
 import {createReviewRatingZodSchema} from "./reviewAndRating.validation";
 import {ENUM_USER_ROLE} from "../../../enums/user";
@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.post("/", auth(ENUM_USER_ROLE.USER), validateRequest(createReviewRatingZodSchema), addReviewAndRating);
 router.get("/:id", getSingleReviewAndRating);
+router.get("/getByService/:id", getAllReviewAndRatingByService);
 router.get("/getAll", getAllReviewAndRating);
 router.get("/getByUser/:id", getAllReviewAndRatingByUser);
 router.post("/update", updateReviewAndRating);

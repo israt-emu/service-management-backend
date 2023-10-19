@@ -36,11 +36,16 @@ export const getAllReviewRatingByUserService = async (id: string): Promise<IRevi
   const result = await ReviewAndRating.find({user: id});
   return result;
 };
+
 //-----delete IReviewRating
 export const deleteReviewRatingService = async (id: string): Promise<IReviewRating | null> => {
   const result = await ReviewAndRating.findOneAndDelete({_id: id});
   if (!result) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Failed to delete review and rating!");
   }
+  return result;
+};
+export const getAllReviewRatingByServiceService = async (id: string): Promise<IReviewRating[]> => {
+  const result = await ReviewAndRating.find({service: id}).populate("user");
   return result;
 };
