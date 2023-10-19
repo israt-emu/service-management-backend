@@ -7,7 +7,6 @@ export type IBooking = {
   totalCost: number;
   date: string;
   time: string;
-  cart: ICart | Types.ObjectId;
   service: IService | Types.ObjectId;
   user: IUser | Types.ObjectId;
   status: "pending" | "confirmed" | "canceled";

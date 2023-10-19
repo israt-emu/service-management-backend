@@ -9,9 +9,7 @@ export const addBookingService = async (payload: IBooking) => {
   const newBooking = await Booking.create({...payload});
   if (!newBooking) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create booking!");
-  } else {
-    await Cart.deleteOne({_id: payload?.cart});
-  }
+  } 
 
   return newBooking;
 };

@@ -22,9 +22,6 @@ export const createBookingZodSchema = z.object({
       user: z.string({
         required_error: "user is required",
       }),
-      cart: z.string({
-        required_error: "cart is required",
-      }),
       service: z.string({
         required_error: "service is required",
       }),

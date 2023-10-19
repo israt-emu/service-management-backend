@@ -26,11 +26,7 @@ const BookingSchema = new Schema<IBooking, BookingModel>(
       ref: "Service",
       required: true,
     },
-    cart: {
-      type: Schema.Types.ObjectId,
-      ref: "Cart",
-      required: true,
-    },
+    
     status: {
       type: String,
       enum: ["pending", "confirmed", "canceled"],
