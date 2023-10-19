@@ -10,8 +10,8 @@ const router = express.Router();
 //,
 
 router.post("/", auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), validateRequest(createBlogZodSchema), createBlog);
-router.get("/:id", getSingleBlog);
 router.get("/getAll", getAllBlog);
+router.get("/:id", getSingleBlog);
 router.delete("/:id", auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), deleteBlog);
 router.patch("/", auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), validateRequest(updateBlogZodSchema), updateBlog);
 

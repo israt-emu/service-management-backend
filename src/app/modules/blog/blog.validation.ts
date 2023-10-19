@@ -29,9 +29,12 @@ export const updateBlogZodSchema = z.object({
   }),
   body: z
     .object({
-      title: z.string().optional(),
-      description: z.string().optional(),
-      image: z.string().optional(),
+      id: z.string({required_error: "id is required"}),
+      data: z.object({
+        title: z.string().optional(),
+        description: z.string().optional(),
+        image: z.string().optional(),
+      }),
     })
     .strict(),
 });

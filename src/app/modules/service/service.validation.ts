@@ -25,7 +25,7 @@ export const createServiceZodSchema = z.object({
         required_error: "addedBy is required",
       }),
       description: z.string().optional(),
-      images: z.array(z.string()).optional(),
+      images: z.string().optional(),
     })
     .strict(),
 });
@@ -43,7 +43,7 @@ export const updateServiceZodSchema = z.object({
       price: z.number().optional(),
       description: z.string().optional(),
       category: z.string().optional(),
-      images: z.array(z.string()).optional(),
+      images: z.string().optional(),
       addedBy: z.string().optional(),
     })
     .strict(),

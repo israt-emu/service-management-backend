@@ -29,11 +29,9 @@ const ServiceSchema = new Schema<IService, ServiceModel>(
       enum: ["available", "unavailable"],
       default: "available",
     },
-    images: [
-      {
-        type: String,
-      },
-    ],
+    image: {
+      type: String,
+    },
 
     addedBy: {
       type: Schema.Types.ObjectId,

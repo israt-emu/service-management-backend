@@ -5,7 +5,7 @@ const BlogSchema = new Schema<IBlog, BlogModel>(
   {
     views: {
       type: Number,
-      required: true,
+      default: 0,
     },
     title: {
       type: String,
