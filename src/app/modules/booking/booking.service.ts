@@ -9,7 +9,7 @@ export const addBookingService = async (payload: IBooking) => {
   const newBooking = await Booking.create({...payload});
   if (!newBooking) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create booking!");
-  } 
+  }
 
   return newBooking;
 };
@@ -28,7 +28,7 @@ export const getSingleBookingService = async (id: string): Promise<IBooking | nu
 };
 //-----get all booking
 export const getAllBookingService = async (): Promise<IBooking[]> => {
-  const booking = await Booking.find().populate("user").populate("service");
+  const booking = await Booking.find().sort({createdAt: "desc"}).populate("user").populate("service");
   return booking;
 };
 //-----get all booking by user

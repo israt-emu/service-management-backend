@@ -13,13 +13,13 @@ export const addCartService = async (payload: ICart): Promise<ICart | null> => {
 };
 //get cart
 export const getSingleCartService = async (user: string, serviceId: string): Promise<ICart | null> => {
-  const cart = await Cart.findOne({user, serviceId});
+  const cart = await Cart.findOne({user, serviceId}).populate("serviceId").populate("user");
   return cart;
 };
 
 //get all cart by user
 export const getCartByUserService = async (user: string): Promise<ICart[]> => {
-  const cart = await Cart.find({user});
+  const cart = await Cart.find({user}).populate("serviceId");
   return cart;
 };
 

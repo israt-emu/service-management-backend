@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", auth(ENUM_USER_ROLE.USER), validateRequest(createBookingZodSchema), createBooking);
 router.get("/getAll/:user", getAllBookingByUser);
-router.get("/getAll", auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), getAllBooking);
+router.get("/getAll", getAllBooking);
 router.get("/:id", getSingleBooking);
 router.delete("/:id", auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), deleteBooking);
 router.post("/updateStatus", auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), validateRequest(updateStatusZodSchema), updateBookingStatus);
